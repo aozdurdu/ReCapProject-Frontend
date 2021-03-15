@@ -1,12 +1,8 @@
-<ul *ngIf="dataLoaded==false"  class="list-group">
-  <li class="list-group-item active" aria-current="true">Colors</li>
-  <div class="d-flex justify-content-center">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-</ul>
-<ul *ngIf="dataLoaded==true" class="list-group">
-  <li class="list-group-item active" aria-current="true">Colors</li>
-  <li *ngFor="let color of colors" class="list-group-item">{{color.colorName}}</li>
+<ul class="nav nav-tabs" style="margin-bottom: 20;">
+  <li class="nav-item" (click)="clearCurrentColor()">
+      <button type="button" [class]="getAllColorClass()" href="#">All Colors</button>
+  </li>
+  <li class="nav-item" (click)="setCurrentColor(color)" *ngFor="let color of colors">
+      <button type="button" [class]="getCurrentColorClass(color)" href="#">{{color.colorName}}</button>
+  </li>
 </ul>
