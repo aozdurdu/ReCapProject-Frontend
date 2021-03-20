@@ -9,7 +9,8 @@ import { ColorService } from 'src/app/services/color.service';
   styleUrls: ['./color.component.css']
 })
 export class ColorComponent implements OnInit {
-  currentColor: Color = {colorId:0,colorName:""}
+  filterColorText:string;
+  currentColor: Color;
   colors:Color[] = [];
   dataLoaded = false;
 
@@ -21,31 +22,44 @@ export class ColorComponent implements OnInit {
   ngOnInit(): void {
     this.getColors();
   }
+ 
+  setCurrentColor() {
+    this.router.navigate([], { queryParams: { Id: this.currentColor.colorId}, queryParamsHandling: 'merge', relativeTo: this.route});
+    
+  }
 
+  setQueryParams(color:Color){
+    if(color){
+      this.setCurrentColor()
+    }else{
+      this.clearCurrentColor()
+    }
+  }
   getColors(){
     this.colorService.getColors().subscribe(response => {
       this.colors = response.data;
       this.dataLoaded = true;
     });
   }
-  getCurrentColorClass(color: Color) {
+  
+  isCurrentColor(color: Color) {
     if (color == this.currentColor) {
-      return 'list-group-item active';
+      return true
     } else {
-      return 'list-group-item';
+      return false
     }
   }
 
-  getAllColorClass(){
+  isAllColorSelected(){
     if(!this.currentColor){
-      return "list-group-item active";
+      return true
     }else{
-      return "list-group-item";
+      return false
     }
   }
 
   clearCurrentColor(){
-    this.currentColor = null;
-    this.router.navigate([], { queryParams: { colorId: undefined}, queryParamsHandling: 'merge', relativeTo: this.route});
+    this.currentColor = undefined;
+    this.router.navigate([], { queryParams: { id: undefined}, queryParamsHandling: 'merge', relativeTo: this.route});
   }
 }

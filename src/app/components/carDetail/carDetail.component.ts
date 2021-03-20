@@ -28,8 +28,6 @@ export class CarDetailComponent implements OnInit {
         this.getCarImages(params["carId"])
       }
     })
-
-    this.setCarouselConfigs();
   }
 
   getCarDetail(carId:number) {

@@ -1,5 +1,5 @@
 <div class="col-lg-7 mx-auto">
-    <div id="carImageSlide" class="carousel slide" data-bs-ride="carousel">
+    <div id="carImageSlide" class="carousel slide carousel-fade" data-bs-ride="carousel">
       <div
         class="carousel-inner d-flex"
         style="height: 50vh; min-height: 20rem; max-height: 30rem"
@@ -13,7 +13,7 @@
           <img
             [src]="imageUrl + image.imagePath"
             class=""
-            style="height: 100%; width: 100%; object-fit: contain"
+            style="height: 100%; width: 100%"
             [alt]="imageUrl + image.imagePath"
           />
         </div>
@@ -36,6 +36,7 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
+
     <table *ngIf="car" class="table table-striped mt-2">
         <tbody>
           <tr>
@@ -55,16 +56,14 @@
             </td>
           </tr>
           <tr>
-            <th scope="row">Model Year</th>
-            <td>{{ car.carModelYear }}</td>
-          </tr>
-          <tr>
             <th scope="row">Description</th>
             <td>{{ car.carDescription }}</td>
           </tr>
         </tbody>
       </table>
+      <div class="card-body d-grid gap-2 mx-auto">
+        <div class="btn-group me-2"><button type="button" routerLink = "/rental/{{car.carId}}" class="btn btn-dark text-center">Rent</button></div>
+     </div>
     </div>
   </div>
-
   

@@ -1,24 +1,44 @@
-<h2 class="text-center">Rental List</h2>
-<div class="d-flex justify-content-center">
-    <div *ngIf="dataLoaded==false" class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
+<div class="card mb-3" style="max-width: 1024px; margin-top: 20px;">
+    <div class="row g-0">
+      <div class="col-md-5">
+        <table *ngIf="car" class="table table-striped mt-2">
+            <tbody>
+              <tr>
+                <th scope="row">Brand</th>
+                <td>{{ car.brandName }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Color</th>
+                <td>{{ car.colorName }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Price</th>
+                <td>
+                  {{
+                    car.carDailyPrice | currency: "TL":"symbol-narrow":"1.2-2"
+                  }}/Daily
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">Description</th>
+                <td>{{ car.carDescription }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div class="col-md-7" style="position: relative;">
+        <div class="card-body">
+            <form class="list-group-item active">
+                <label>Start Date</label><label style="margin-left: 95px;">Finish Date</label>
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group me-5" role="group" aria-label="First group"><input type="date" (change)="calculatePrice()" [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}"></div>
+                    <div class="btn-group me-5" role="group" aria-label="First group"><input type="date" (change)="calculatePrice()" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}"></div>
+                </div>
+                <br><br>
+                <div><p *ngIf="endDate && startDate">Total Price: {{rentPrice | currency:"TL":"symbol-narrow":"1.2-2"}}</p></div>
+            </form>
+        </div>
+          <button *ngIf="endDate && startDate && rentPrice>0" (click)="addRental()" type="button" class="btn btn-success" style="position:absolute; bottom:20px; right:20px;">Rent</button>
+      </div>
     </div>
-</div>
-<table *ngIf="dataLoaded==true" class="table table-success table-striped">
-    <thead>
-        <tr>
-            <th>Brand</th>
-            <th>Color</th>
-            <th>Customer</th>
-            <th>Rental Date</th>
-            <th>Return Date</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let rental of rentals">
-        <td>{{rental.brandName}}</td>
-        <td>{{rental.colorName}}</td>
-        <td>{{rental.firstName + " " +rental.lastName}}</td>
-        <td>{{rental.rentDate}}</td>
-        <td>{{(rental.returnDate == null)? "Not return, yet": rental.returnDate | date:'dd--MM-YYYY'}}</td>
-    </tr>
-</table>
+  </div>

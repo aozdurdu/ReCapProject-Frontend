@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./car.component.css']
 })
 export class CarComponent implements OnInit {
+  filterCarText:string;
   cars:CarDetail[] = [];
   carImages: CarImage[] = [];
   dataLoaded = false;
